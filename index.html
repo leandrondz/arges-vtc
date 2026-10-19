@@ -221,7 +221,8 @@ form{grid-template-columns:1fr}
 <div class="rv"><div class="rule"></div><h2>Réservez votre trajet</h2>
 <p>Indiquez votre trajet : votre demande est envoyée directement à ARGES VTC par e-mail.</p></div>
 <form id="f" class="rv">
-<label class="full">Nom, prénom ou société<input name="c" required autocomplete="name" placeholder="Ex. Marie Dupont ou Société Durand"></label>
+<label>Nom, prénom ou société<input name="c" required autocomplete="name" placeholder="Ex. Marie Dupont ou Société Durand"></label>
+<label>Votre e-mail<input type="email" name="e" required autocomplete="email" placeholder="vous@exemple.com"></label>
 <label>Prise en charge<input name="a" required autocomplete="off" placeholder="Adresse ou lieu"></label>
 <label>Destination<input name="b" required autocomplete="off" placeholder="Adresse ou lieu"></label>
 <label>Date<input type="date" name="d" required></label>
@@ -251,10 +252,10 @@ var d=document.querySelector('input[type=date]');d.min=new Date().toISOString().
 var ENDPOINT='https://formspree.io/f/xdeajbrl';
 var fm0=document.getElementById('f'),st=document.createElement('p');st.setAttribute('role','status');st.style.cssText='grid-column:1/-1;margin:0;color:var(--gold2)';fm0.appendChild(st);
 fm0.addEventListener('submit',function(ev){ev.preventDefault();var fm=ev.target,f=fm.elements,mode=ev.submitter?ev.submitter.dataset.m:'e';
-var m='Bonjour ARGES VTC, je souhaite réserver : '+f.s.value+'.\nNom : '+f.c.value+'\nPrise en charge : '+f.a.value+'\nDestination : '+f.b.value+'\nDate : '+f.d.value+' à '+f.t.value+'\nPassagers : '+f.n.value;
+var m='Bonjour ARGES VTC, je souhaite réserver : '+f.s.value+'.\nNom : '+f.c.value+'\nE-mail : '+f.e.value+'\nPrise en charge : '+f.a.value+'\nDestination : '+f.b.value+'\nDate : '+f.d.value+' à '+f.t.value+'\nPassagers : '+f.n.value;
 if(mode==='w'){var u='https://wa.me/33652826775?text='+encodeURIComponent(m);var w=window.open(u,'_blank');if(!w)location.href=u;return}
 st.textContent='Envoi en cours…';
-fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({nom:f.c.value,prise_en_charge:f.a.value,destination:f.b.value,date:f.d.value,heure:f.t.value,prestation:f.s.value,passagers:f.n.value,message:m})}).then(function(r){if(!r.ok)throw 0;fm.reset();st.textContent='Merci, votre demande a bien été envoyée. Nous vous recontactons très vite.'}).catch(function(){st.textContent='L’envoi a échoué. Appelez-nous au +33 6 52 82 67 75 ou utilisez WhatsApp.'})});
+fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({nom:f.c.value,email:f.e.value,prise_en_charge:f.a.value,destination:f.b.value,date:f.d.value,heure:f.t.value,prestation:f.s.value,passagers:f.n.value,message:m})}).then(function(r){if(!r.ok)throw 0;fm.reset();st.textContent='Merci, votre demande a bien été envoyée. Nous vous recontactons très vite.'}).catch(function(){st.textContent='L’envoi a échoué. Appelez-nous au +33 6 52 82 67 75 ou utilisez WhatsApp.'})});
 })();
 </script>
 </body>
